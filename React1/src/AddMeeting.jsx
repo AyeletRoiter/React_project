@@ -6,24 +6,23 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 
 const AddMeeting = ({ handleClose }) => {
-    //הגדרת המשתנה 
+    // הגדרת המשתנה 
     const [newMeeting, setNewMeeting] = useState({
         NameClient: "",
         MeetDescription: "",
-        Date: ""
+        Date: new Date()
     });
 
-    //המרת התאריך לסטרינג
+    // המרת התאריך לאובייקט Date
     const handleChange = (field, value) => {
         if (field === "Date") {
-            setNewMeeting({ ...newMeeting, [field]: value }); // שימוש בפורמט תאריך כחרוז פשוט
+            setNewMeeting({ ...newMeeting, [field]: new Date(value) }); // המרת הערך לאובייקט Date
         } else {
             setNewMeeting({ ...newMeeting, [field]: value });
         }
     };
-    
 
-    //הוא שולח את האוביקט newMeeting למחלקה
+    // הוא שולח את האובייקט newMeeting למחלקה
     const handleConfirm = async () => {
         try {
             await Meeting_Class.addMeeting(newMeeting);
@@ -51,6 +50,9 @@ const AddMeeting = ({ handleClose }) => {
                     id="outlined-basic"
                     label="Date"
                     variant="outlined"
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
                 />
                 <Stack spacing={2} direction="row">
                     <Button variant="outlined" onClick={handleClose}>ביטול</Button>
